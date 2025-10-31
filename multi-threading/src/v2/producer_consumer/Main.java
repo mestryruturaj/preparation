@@ -2,8 +2,6 @@ package v2.producer_consumer;
 
 public class Main {
     public static void main(String[] args) {
-
-
         Message message = new Message();
         Runnable producerTask = new Runnable() {
             @Override
@@ -35,7 +33,7 @@ public class Main {
 
 class Message {
     private String message;
-    private boolean hasMessage;
+    private volatile boolean hasMessage;
 
     public String getMessage() {
         this.hasMessage = false;
