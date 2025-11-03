@@ -7,25 +7,30 @@ import java.util.concurrent.Future;
 
 public class Main {
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Boolean> future = executor.submit(() -> {
-            for (int i = 0; i < 10; i++) {
-                System.out.println("Producing a message.");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                System.out.println("Message number " + (i + 1));
-            }
-        }, true);
+        try (ExecutorService executor = Executors.newSingleThreadExecutor();) {
+            Future<Boolean> future = executor.submit(() -> {
+                System.out.println("Producing messages");
+                for (int i = 0; i < 10; i++) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return false;
+                    }
 
-        try {
-            System.out.println(future.get());
-        } catch (InterruptedException | ExecutionException e) {
-            Thread.currentThread().interrupt();
+                    System.out.println("Number is " + (i + 1));
+                }
+
+                return true;
+            });
+
+            System.out.println(Thread.currentThread().getName() + ": thread runs asynchronously.");
+
+            try {
+                System.out.println("I am assuming task executed successfully. is it? " + future.get());
+            } catch (InterruptedException | ExecutionException e) {
+                Thread.currentThread().interrupt();
+            }
         }
-        System.out.println(Thread.currentThread().getName() + ": thread is running asynchronously.");
-        executor.shutdown();
     }
 }
