@@ -1,4 +1,4 @@
-package v2.producer_consumer.completable_future;
+package v2.completable_future;
 
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
