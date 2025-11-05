@@ -1,11 +1,49 @@
 package v0.countdown_latch;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
 
 public class Main {
+    //CountDownLatch approach
+    public static void main(String[] args) {
+        int THREAD_COUNT = 3;
+        CountDownLatch countDownLatch = new CountDownLatch(THREAD_COUNT);
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName() + ": thread has running.");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                } finally {
+                    System.out.println(Thread.currentThread().getName() + ": thread has **completed**.");
+                    countDownLatch.countDown();
+                }
+            }
+        };
+
+        Thread t0 = new Thread(task);
+        Thread t1 = new Thread(task);
+        Thread t2 = new Thread(task);
+
+        t0.start();
+        t1.start();
+        t2.start();
+
+        try {
+            System.out.println("All threads are not yet completed.");
+            countDownLatch.await();
+            System.out.println("All threads are completed.");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+    }
+
+
     //Better approach
+    /*
     public static void main(String[] args) {
         Runnable task = new Runnable() {
             @Override
@@ -47,6 +85,7 @@ public class Main {
             }
         }
     }
+    */
 
     //Naive approach
     /*
