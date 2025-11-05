@@ -1,9 +1,46 @@
 package v0.countdown_latch;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
+    public static void main(String[] args) {
+        int THREAD_COUNT = 3;
+        CountDownLatch countDownLatch = new CountDownLatch(THREAD_COUNT);
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName() + ": thread has started running.");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                } finally {
+                    countDownLatch.countDown();
+                }
+                System.out.println(Thread.currentThread().getName() + ": thread has **completed** running.");
+            }
+        };
+
+        executorService.submit(task);
+        executorService.submit(task);
+        executorService.submit(task);
+
+        System.out.println("Main thread executed this line");
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("Main thread waiting until all threads complete execution.");
+
+    }
+
     //CountDownLatch approach
+    /*
     public static void main(String[] args) {
         int THREAD_COUNT = 3;
         CountDownLatch countDownLatch = new CountDownLatch(THREAD_COUNT);
@@ -40,7 +77,7 @@ public class Main {
         }
 
     }
-
+    */
 
     //Better approach
     /*
