@@ -37,6 +37,7 @@ public class Main {
         }
         System.out.println("Main thread waiting until all threads complete execution.");
 
+        executorService.shutdown();
     }
 
     //CountDownLatch approach
