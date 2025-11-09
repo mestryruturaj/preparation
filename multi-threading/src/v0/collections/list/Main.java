@@ -1,10 +1,15 @@
 package v0.collections.list;
 
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Main {
     public static void main(String[] args) {
+//        runCopyOnWriteArrayListDemo();
+    }
+
+    private static void runCopyOnWriteArrayListDemo() {
         CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 100000; i++) {
@@ -36,5 +41,11 @@ public class Main {
         endTime = System.currentTimeMillis();
         System.out.println("Time required to read from non thread safe list1 is " + (endTime - startTime));
 
+    }
+
+    private static void runVectorDemo() {
+        Vector<Integer> vector = new Vector<>();
+        vector.add(10);
+        vector.get(0);
     }
 }
