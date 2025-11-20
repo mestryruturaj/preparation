@@ -1,9 +1,9 @@
-package v0;
+package v0.generics;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Generics {
+public class Main {
     public static void main(String[] args) {
 //        List<?> wildCardList = getEntity();
 //        for (int i = 0; i < wildCardList.size(); i++) {
