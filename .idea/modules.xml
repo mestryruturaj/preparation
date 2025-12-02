@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/java-features/java-features.iml" filepath="$PROJECT_DIR$/java-features/java-features.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lld/lld.iml" filepath="$PROJECT_DIR$/lld/lld.iml" />
       <module fileurl="file://$PROJECT_DIR$/multi-threading/multi-threading.iml" filepath="$PROJECT_DIR$/multi-threading/multi-threading.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/preparation.iml" filepath="$PROJECT_DIR$/.idea/preparation.iml" />
     </modules>
