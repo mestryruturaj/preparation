@@ -19,7 +19,9 @@ public class Main {
 //        extractNumbersStartingWithX(nums, 11)
 //                .forEach(num -> System.out.println(num));
 
-        findFirstNonRepeatingCharacter();
+//        findFirstNonRepeatingCharacter();
+        long distinct = countUniqueFruits(List.of("Apple", "Banana", "Apple", "Apple", "Apple", "Orange", "Banana"));
+        System.out.println(distinct);
     }
 
     public static void printEven(List<Integer> nums) {
@@ -53,6 +55,10 @@ public class Main {
                 .getKey();
 
         System.out.println(firstUniqueCharacter);
+    }
+
+    public static long countUniqueFruits(List<String> fruits) {
+        return fruits.stream().distinct().count();
     }
 
 }
